@@ -1,7 +1,10 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
@@ -15,6 +18,9 @@ public class PowierzchniaRysunku extends SurfaceView implements SurfaceHolder.Ca
     private boolean mWatekPracuje = false;
 
     private Object mBlokada = new Object();
+
+    private Bitmap mBitmapa = null;
+    private Canvas mKanwa = null;
 
     public PowierzchniaRysunku(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -55,7 +61,9 @@ public class PowierzchniaRysunku extends SurfaceView implements SurfaceHolder.Ca
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-
+        mBitmapa = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        mKanwa = new Canvas(mBitmapa);
+        mKanwa.drawARGB(255, 255, 255, 255);
     }
 
     @Override
@@ -79,7 +87,7 @@ public class PowierzchniaRysunku extends SurfaceView implements SurfaceHolder.Ca
                     kanwa = mPojemnik.lockCanvas(null);
                     synchronized (mBlokada) {
                         if (mWatekPracuje) {
-
+                            mKanwa.drawBitmap(mBitmapa, 0, 0, null);
                         }
                     }
                 }
