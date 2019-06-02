@@ -42,6 +42,13 @@ public class PowierzchniaRysunku extends SurfaceView implements SurfaceHolder.Ca
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         performClick();
+
+        Paint mFarba;
+        mFarba = new Paint();
+        mFarba.setColor(Color.BLUE);
+        mFarba.setStrokeWidth(2);
+        mFarba.setStyle(Paint.Style.FILL);
+        mFarba.setStyle(Paint.Style.STROKE);
         synchronized (mBlokada) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
@@ -49,6 +56,7 @@ public class PowierzchniaRysunku extends SurfaceView implements SurfaceHolder.Ca
                 case MotionEvent.ACTION_MOVE:
                     break;
                 case MotionEvent.ACTION_UP:
+
                     break;
             }
         }
@@ -63,7 +71,7 @@ public class PowierzchniaRysunku extends SurfaceView implements SurfaceHolder.Ca
     public void surfaceCreated(SurfaceHolder holder) {
         mBitmapa = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
         mKanwa = new Canvas(mBitmapa);
-        mKanwa.drawARGB(255, 255, 255, 255);
+        mKanwa.drawARGB(255, 0, 255, 255);
 
         mWatekRysujacy = new Thread(this);
         mWatekPracuje = true;
@@ -72,16 +80,26 @@ public class PowierzchniaRysunku extends SurfaceView implements SurfaceHolder.Ca
 
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
     }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         mWatekPracuje = false;
+        try {
+            mWatekRysujacy.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void run() {
+        Paint mFarba;
+        mFarba = new Paint();
+        mFarba.setColor(Color.BLUE);
+        mFarba.setStrokeWidth(2);
+        mFarba.setStyle(Paint.Style.FILL);
+        mFarba.setStyle(Paint.Style.STROKE);
         while (mWatekPracuje) {
             Canvas kanwa = null;
             try {
@@ -91,7 +109,7 @@ public class PowierzchniaRysunku extends SurfaceView implements SurfaceHolder.Ca
                     kanwa = mPojemnik.lockCanvas(null);
                     synchronized (mBlokada) {
                         if (mWatekPracuje) {
-                            mKanwa.drawBitmap(mBitmapa, 0, 0, null);
+                            kanwa.drawBitmap(mBitmapa, 0, 0, mFarba);
                         }
                     }
                 }
