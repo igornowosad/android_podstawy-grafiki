@@ -64,6 +64,10 @@ public class PowierzchniaRysunku extends SurfaceView implements SurfaceHolder.Ca
         mBitmapa = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
         mKanwa = new Canvas(mBitmapa);
         mKanwa.drawARGB(255, 255, 255, 255);
+
+        mWatekRysujacy = new Thread(this);
+        mWatekPracuje = true;
+        mWatekRysujacy.start();
     }
 
     @Override
