@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
@@ -21,6 +22,13 @@ public class PowierzchniaRysunku extends SurfaceView implements SurfaceHolder.Ca
 
     private Bitmap mBitmapa = null;
     private Canvas mKanwa = null;
+
+    private float xStart;
+    private float yStart;
+    private float xStop;
+    private float yStop;
+    private float xNew;
+    private float yNew;
 
     public PowierzchniaRysunku(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -43,20 +51,34 @@ public class PowierzchniaRysunku extends SurfaceView implements SurfaceHolder.Ca
     public boolean onTouchEvent(MotionEvent event) {
         performClick();
 
+        Path mSciezka = null;
+        mSciezka = new Path();
         Paint mFarba;
         mFarba = new Paint();
         mFarba.setColor(Color.BLUE);
         mFarba.setStrokeWidth(2);
-        mFarba.setStyle(Paint.Style.FILL);
-        mFarba.setStyle(Paint.Style.STROKE);
+        mFarba.setStyle(Paint.Style.FILL_AND_STROKE);
         synchronized (mBlokada) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
+                    xStart = event.getX();
+                    yStart = event.getY();
+                    xStop = xStart;
+                    yStop = yStart;
+                    mKanwa.drawCircle(xStart, yStart, 10, mFarba);
+                    mSciezka.moveTo(xStop, yStop);
                     break;
                 case MotionEvent.ACTION_MOVE:
+                    mSciezka.moveTo(xStop, yStop);
+                    xNew = event.getX();
+                    yNew = event.getY();
+                    mSciezka.lineTo(xNew, yNew);
+                    mKanwa.drawPath(mSciezka, mFarba);
+                    xStop = xNew;
+                    yStop = yNew;
                     break;
                 case MotionEvent.ACTION_UP:
-
+                    mKanwa.drawCircle(xStop, yStop, 10, mFarba);
                     break;
             }
         }
