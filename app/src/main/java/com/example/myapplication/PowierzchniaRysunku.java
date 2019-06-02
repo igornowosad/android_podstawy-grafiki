@@ -37,6 +37,10 @@ public class PowierzchniaRysunku extends SurfaceView implements SurfaceHolder.Ca
         mPojemnik.addCallback(this);
     }
 
+    public void clear() {
+        mKanwa.drawARGB(255, 0, 255, 255);
+    }
+
     public void wznowRysowanie() {
         mWatekRysujacy = new Thread(this);
         mWatekPracuje = true;
@@ -55,7 +59,7 @@ public class PowierzchniaRysunku extends SurfaceView implements SurfaceHolder.Ca
         mSciezka = new Path();
         Paint mFarba;
         mFarba = new Paint();
-        mFarba.setColor(Color.BLUE);
+        mFarba.setColor(MainActivity.color);
         mFarba.setStrokeWidth(2);
         mFarba.setStyle(Paint.Style.FILL_AND_STROKE);
         synchronized (mBlokada) {
