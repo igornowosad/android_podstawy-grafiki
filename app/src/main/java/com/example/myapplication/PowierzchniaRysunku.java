@@ -37,6 +37,14 @@ public class PowierzchniaRysunku extends SurfaceView implements SurfaceHolder.Ca
     public boolean onTouchEvent(MotionEvent event) {
         performClick();
         synchronized (mBlokada) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    break;
+                case MotionEvent.ACTION_UP:
+                    break;
+            }
         }
         return true;
     }
