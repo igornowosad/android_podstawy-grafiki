@@ -37,10 +37,6 @@ public class PowierzchniaRysunku extends SurfaceView implements SurfaceHolder.Ca
         mPojemnik.addCallback(this);
     }
 
-    public void clear() {
-        mKanwa.drawARGB(255, 0, 255, 255);
-    }
-
     public void wznowRysowanie() {
         mWatekRysujacy = new Thread(this);
         mWatekPracuje = true;
@@ -135,6 +131,10 @@ public class PowierzchniaRysunku extends SurfaceView implements SurfaceHolder.Ca
                     kanwa = mPojemnik.lockCanvas(null);
                     synchronized (mBlokada) {
                         if (mWatekPracuje) {
+                            if (MainActivity.clear) {
+                                mKanwa.drawARGB(255, 0, 255, 255);
+                                MainActivity.clear = false;
+                            }
                             kanwa.drawBitmap(mBitmapa, 0, 0, mFarba);
                         }
                     }
