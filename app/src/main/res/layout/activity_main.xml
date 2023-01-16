@@ -6,13 +6,80 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+    <com.example.myapplication.PowierzchniaRysunku
+        android:id="@+id/powierzchnia_rysunku"
+        android:layout_width="386dp"
+        android:layout_height="494dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/powierzchnia_rysunku">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:text="Clear"
+            android:clickable="true"
+            android:onClick="buttonClear"
+            style="?android:attr/buttonBarButtonStyle"
+            tools:layout_editor_absoluteX="307dp"
+            tools:layout_editor_absoluteY="667dp"
+            android:focusable="true" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@android:color/holo_red_dark"
+            android:clickable="true"
+            android:onClick="buttonRed"
+            android:text="Red"
+            style="?android:attr/buttonBarButtonStyle"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="667dp"
+            android:focusable="true" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="0dp"
+            android:clickable="true"
+            android:onClick="buttonGreen"
+            android:layout_height="fill_parent"
+            android:background="@android:color/holo_green_dark"
+            android:layout_weight="1"
+            android:text="Green"
+            style="?android:attr/buttonBarButtonStyle"
+            tools:layout_editor_absoluteX="113dp"
+            tools:layout_editor_absoluteY="667dp"
+            android:focusable="true" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="0dp"
+            android:clickable="true"
+            android:onClick="buttonBlue"
+            android:layout_height="fill_parent"
+            android:background="@android:color/holo_blue_dark"
+            android:layout_weight="1"
+            android:text="Blue"
+            style="?android:attr/buttonBarButtonStyle"
+            tools:layout_editor_absoluteX="210dp"
+            tools:layout_editor_absoluteY="667dp" />
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
